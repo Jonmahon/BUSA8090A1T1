@@ -1,0 +1,36 @@
+#!/bin/bash
+
+time=$(date +%I)
+#create new variable storing the current minute
+minute=$(date +%M)
+count=0
+#create a second counting variable
+count2=0
+while test $count -lt $time; do
+  echo -e "\a"
+  sleep 1 # sleep for one second
+  count=$[$count+1]
+done
+
+sleep 3 #sleep for 3 seconds after the hour noise indicator
+
+#run an if statement to check if the time is between 15 and 30 minutes past the hour and make one chime
+if [ $minute -ge 15 ] && [ $minute -lt 30 ]; then
+        echo -e "\a"
+        exit 0
+#now check if the time is between 30 and 45 minutes past the hour and make 2 chimes if so
+elif [ $minute -ge 30 ] && [ $minute -lt 45 ]; then
+        while test $count2 -lt 2; do
+                echo -e "\a"
+                sleep 1
+                count2=$[$count2+1]
+        done
+        exit 0
+#now check if the time is between 45 and 60 minutes past the hour and make 3 beeps if so
+elif [ $minute -ge 45 ]; then
+        while test $count2 -lt 3; do
+                echo -e "\a"
+                sleep 1
+                count2=$[$count2+1]
+        done
+fi
